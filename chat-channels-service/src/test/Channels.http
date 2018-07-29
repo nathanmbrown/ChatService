@@ -1,0 +1,10 @@
+GET http://localhost:8080/channels/create?ownerID=bob&name=#test
+###
+
+GET http://localhost:8080/channels/findAll
+
+###
+
+GET http://localhost:8080/channels/findByID/bob
+
+###

@@ -1,0 +1,53 @@
+version: '2.2'
+services:
+    chat-registry-server:
+        container_name: chat-registry-server
+        build:
+            context: chat-registry
+            dockerfile: Dockerfile
+        image: chat-registry-server:latest
+        expose:
+            - 9091
+        ports:
+            - 9091:9091
+        networks:
+            - chat-network
+    chat-channels-service:
+        container_name: chat-channels-service
+        build:
+            context: chat-channels-service
+            dockerfile: Dockerfile
+        image: chat-channels-service:latest
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        networks:
+            - chat-network
+        links:
+            - chat-registry-server:chat-registry-server
+        depends_on:
+            - chat-registry-server
+        logging:
+            driver: json-file
+    chat-service:
+        container_name: chat-service
+        build:
+            context: chat-service
+            dockerfile: Dockerfile
+        image: chat-service:latest
+        expose:
+            - 8081
+        ports:
+            - 8081:8081
+        networks:
+            - chat-network
+        links:
+            - chat-registry-server:chat-registry-server
+        depends_on:
+            - chat-registry-server
+        logging:
+            driver: json-file
+networks:
+    chat-network:
+        driver: bridge

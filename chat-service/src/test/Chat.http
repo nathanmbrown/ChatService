@@ -1,0 +1,9 @@
+GET http://localhost:8081/chat/channel/test
+
+###
+
+POST http://localhost:8081/chat/channel/test
+
+Test message
+
+###
